@@ -32,13 +32,24 @@ const App = () => {
     },
 ])
 
+const ToggleReminder = (id) => {
+  setTasks(
+    tasks.map((task) => 
+    task.id === id ? {...task, reminder: !task.reminder} : task))  
+}
+
+const DeleteTask = (id) => {
+  setTasks(tasks.filter((task) => task.id !== id))
+  
+}
+
   return (
-    <div className="App">
-      {/* Exempel på att skicka med prop title till Header */}
-      {/* <Header title="hello"/> */}
+    <div className="container">
       <Header />
-      <UnorderdList />
-      <Tasks tasks={tasks}/>
+      {tasks.length > 0 ? 
+        <Tasks tasks={tasks} onDelete={DeleteTask} onToggle={ToggleReminder} /> 
+        : 'No tasks to show'
+      }
     </div>
   );
 }
